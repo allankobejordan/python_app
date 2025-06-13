@@ -1,0 +1,29 @@
+<h2>Usuários cadastrados</h2>
+{% if messages %}
+  {% for message in messages %}
+    <div 
+        class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" 
+        role="alert"
+        style="margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+    >
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Usuários</th>
+        <th>Email</th>
+        <th>Ações</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.username}}</td>
+        <td>{{ usuario.email}}</td>
+        <td>
+            <a href="{% url 'editar_usuario' usuario.id %}">Editar</a> | <a href="#">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
