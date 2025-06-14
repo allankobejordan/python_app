@@ -4,5 +4,44 @@
 
 {% block content %}
   <h2 class="text-3xl text-yellow-300 mb-4">Bem-vindo ao Street Vibes 90s 🧢</h2>
-  <p class="text-white">Explore nosso catálogo de blusas, cadastre novos produtos ou gerencie seus usuários!</p>
+  <p class="text-white mb-6">Explore nosso catálogo de blusas, cadastre novos produtos ou gerencie seus usuários!</p>
+
+  <h3 class="text-2xl text-pink-400 mb-4">Catálogo</h3>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    {% for produto in page_obj %}
+      <div class="bg-white p-4 rounded shadow text-black">
+        {% if produto.imagem %}
+          <img src="{{ produto.imagem.url }}"
+     alt="{{ produto.nome }}"
+     class="w-full h-48 object-contain bg-white rounded mb-3 border border-gray-200 shadow-sm p-2">
+
+        {% endif %}
+        <h4 class="text-xl font-bold">{{ produto.nome }}</h4>
+        <p class="text-gray-700 mb-2">{{ produto.descricao }}</p>
+        <p class="text-pink-600 font-bold">R$ {{ produto.preco|floatformat:2 }}</p>
+        <p class="text-sm text-gray-500">Tamanho: {{ produto.tamanho }}</p>
+        <a href="#" class="inline-block mt-3 px-4 py-2 bg-pink-500 text-white font-semibold rounded hover:bg-pink-600 transition">
+          Saiba mais
+        </a>
+      </div>
+    {% empty %}
+      <p class="text-white">Nenhum produto cadastrado ainda.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Paginação -->
+  <div class="mt-8 flex justify-center space-x-2">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">⬅️ Anterior</a>
+    {% endif %}
+
+    <span class="px-4 py-2 bg-gray-900 text-white rounded">
+      Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Próxima ➡️</a>
+    {% endif %}
+  </div>
 {% endblock %}

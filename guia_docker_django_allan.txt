@@ -1,61 +1,21 @@
-# Passo a passo completo para rodar container Django com Docker Compose
-# Gerado em 14/06/2025
+1. Parar containers e remover volumes órfãos:
 
-# 🧼 1. Limpar containers, imagens e cache (opcional mas recomendado)
-sudo docker system prune -a
-sudo docker volume prune
+sudo docker compose down --volumes --remove-orphans
 
-# 📁 2. Estrutura esperada do projeto:
-# - Dockerfile
-# - docker-compose.yml
-# - requirements.txt
-# - manage.py (e demais arquivos Django)
+2. Limpar tudo do Docker (imagens, containers parados, volumes não utilizados etc.):
 
-# 🛠️ 3. Arquivo: Dockerfile
-# Crie um arquivo chamado "Dockerfile" com o conteúdo abaixo:
+sudo docker system prune -a --volumes
 
-FROM python:3.10-slim
+⚠️ Cuidado: esse comando apaga tudo que não estiver sendo usado. Só use se tiver certeza!
+3. Rebuildar o projeto do zero, sem cache:
 
-WORKDIR /app
+sudo docker compose build --no-cache
 
-COPY requirements.txt .
+4. Subir o projeto novamente:
 
-RUN pip install --no-cache-dir -r requirements.txt
+sudo docker compose up
 
-COPY . .
+(Ou rodar em segundo plano):
 
-EXPOSE 8000
+sudo docker compose up -d
 
-# 🛠️ 4. Arquivo: docker-compose.yml
-# Crie um arquivo chamado "docker-compose.yml" com o conteúdo abaixo:
-
-version: "3.9"
-
-services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-
-# 🧪 5. (Se necessário) gerar requirements.txt
-pip freeze > requirements.txt
-
-# 🚀 6. Subir o container
-sudo docker compose up --build
-
-# ✅ 7. Verificar se está rodando
-sudo docker ps
-
-# 🐚 8. Acessar o container em execução
-sudo docker exec -it python_apps-web-1 bash
-
-# 🌐 9. Acessar no navegador
-# Abra no navegador: http://localhost:8000
-# Ou, em outra máquina: http://<IP_DA_MAQUINA>:8000
-hostname -I  # para descobrir o IP da máquina
-
-# ⚠️ 10. No settings.py do Django, verifique:
-ALLOWED_HOSTS = ["*"]
