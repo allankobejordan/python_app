@@ -1,0 +1,61 @@
+# Passo a passo completo para rodar container Django com Docker Compose
+# Gerado em 14/06/2025
+
+# 🧼 1. Limpar containers, imagens e cache (opcional mas recomendado)
+sudo docker system prune -a
+sudo docker volume prune
+
+# 📁 2. Estrutura esperada do projeto:
+# - Dockerfile
+# - docker-compose.yml
+# - requirements.txt
+# - manage.py (e demais arquivos Django)
+
+# 🛠️ 3. Arquivo: Dockerfile
+# Crie um arquivo chamado "Dockerfile" com o conteúdo abaixo:
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+# 🛠️ 4. Arquivo: docker-compose.yml
+# Crie um arquivo chamado "docker-compose.yml" com o conteúdo abaixo:
+
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+
+# 🧪 5. (Se necessário) gerar requirements.txt
+pip freeze > requirements.txt
+
+# 🚀 6. Subir o container
+sudo docker compose up --build
+
+# ✅ 7. Verificar se está rodando
+sudo docker ps
+
+# 🐚 8. Acessar o container em execução
+sudo docker exec -it python_apps-web-1 bash
+
+# 🌐 9. Acessar no navegador
+# Abra no navegador: http://localhost:8000
+# Ou, em outra máquina: http://<IP_DA_MAQUINA>:8000
+hostname -I  # para descobrir o IP da máquina
+
+# ⚠️ 10. No settings.py do Django, verifique:
+ALLOWED_HOSTS = ["*"]

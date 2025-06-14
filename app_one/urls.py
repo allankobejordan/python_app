@@ -7,4 +7,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # ⬅️ isso é ESSENCIAL
     path('accounts/', include('usuarios.urls')),  # <-- aqui tá tentando importar
     path('', home, name='home'), # ← home protegida por login
+    path('produtos/', include('produtos.urls', namespace='produtos')),
 ]

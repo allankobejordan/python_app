@@ -1,4 +1,11 @@
-<h2>Usuários cadastrados</h2>
+{% extends "base_interno.html" %}
+
+{% block title %}Lista de Usuários{% endblock %}
+
+{% block content %}
+
+<h2 class="text-2xl text-yellow-300 mb-4">Usuários cadastrados</h2>
+
 {% if messages %}
   {% for message in messages %}
     <div 
@@ -11,19 +18,31 @@
   {% endfor %}
 {% endif %}
 
-<table border="1" cellpadding="8">
-    <tr>
-        <th>Usuários</th>
-        <th>Email</th>
-        <th>Ações</th>
-    </tr>
-    {% for usuario in usuarios %}
-    <tr>
-        <td>{{ usuario.username}}</td>
-        <td>{{ usuario.email}}</td>
-        <td>
-            <a href="{% url 'editar_usuario' usuario.id %}">Editar</a> | <a href="#">Excluir</a>
-        </td>
-    </tr>
-    {% endfor %}
+<table class="w-full text-left bg-white text-black rounded shadow">
+    <thead>
+        <tr class="bg-gray-200 text-gray-800">
+            <th class="p-3">Usuário</th>
+            <th class="p-3">Email</th>
+            <th class="p-3">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr class="border-t">
+            <td class="p-3">{{ usuario.username }}</td>
+            <td class="p-3">{{ usuario.email }}</td>
+            <td class="p-3 space-x-4">
+                <a href="{% url 'editar_usuario' usuario.id %}" class="text-blue-500 hover:text-blue-700" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'excluir_usuario' usuario.id %}" class="text-red-500 hover:text-red-700"
+                   onclick="return confirm('Tem certeza que deseja excluir este usuário?');" title="Excluir">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Street Vibes 90s{% endblock %}</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts - Bungee (estilo retrô) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Animate.css para transições suaves -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- Estilo base do sistema -->
+  <style>
+    body {
+      font-family: 'Bungee', cursive;
+    }
+
+    /* Adicionais para brilhar alguns ícones, se quiser animar */
+    .glow {
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    }
+  </style>
+
+  {% block head %}{% endblock %}
+</head>
+
+<body class="bg-gray-900 text-white">
+  {% block content %}{% endblock %}
+</body>
+</html>

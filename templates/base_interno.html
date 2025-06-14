@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Street Vibes 90s{% endblock %}</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Bungee', cursive;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+  <!-- Menu topo -->
+  <header class="bg-black/80 shadow-md p-4 flex items-center justify-between">
+    <h1 class="text-pink-400 text-2xl">🧢 Street Vibes 90s</h1>
+    <nav class="space-x-4 text-sm">
+      <a href="{% url 'home' %}" class="hover:text-yellow-300">Início</a>
+      <a href="{% url 'listar_usuarios' %}" class="hover:text-yellow-300">Usuários</a>
+      <a href="{% url 'produtos:cadastrar_produto' %}" class="hover:text-yellow-300">Cadastrar Produto</a>
+      {# <a href="{% url 'catalogo' %}" class="hover:text-yellow-300">Catálogo</a> #}
+      {# <a href="{% url 'cadastrar_blusa' %}" class="hover:text-yellow-300">Cadastrar Produto</a> #}
+      <a href="{% url 'logout' %}" class="hover:text-red-400">Sair</a>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 p-6">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Rodapé fixo -->
+  <footer class="bg-black/80 p-3 text-center text-xs text-gray-400">
+    © 2025 Street Vibes 90s. Todos os direitos reservados.
+  </footer>
+</body>
+</html>

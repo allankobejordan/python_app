@@ -58,3 +58,8 @@ def editar_usuario(request, user_id):
 
     return render(request, 'usuarios/editar_usuario.html', {'form': form, 'usuario': user})           
         
+def excluir_usuario(request, id):
+    usuario = get_object_or_404(User, pk=id)
+    usuario.delete()
+    messages.success(request, 'Usuario excluído com sucesso.')
+    return redirect('listar_usuarios')
