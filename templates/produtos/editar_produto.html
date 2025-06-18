@@ -1,0 +1,53 @@
+{% extends "base_interno.html" %}
+
+{% block content %}
+<h2 class="text-2xl text-yellow-300 font-bold mb-6">Editar Produto</h2>
+
+<form method="post" enctype="multipart/form-data" class="bg-gray-800 p-6 rounded-xl shadow-md max-w-xl mx-auto space-y-5">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-white mb-1">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+                <p class="text-red-400 text-xs mt-1">{{ field.errors|striptags }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="text-right">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+            💾 Salvar alterações
+        </button>
+    </div>
+</form>
+
+<!-- Estilo inline pra forçar os inputs a ficarem mais escuros e texto claro -->
+<style>
+    input, select, textarea {
+        background-color: #111827; /* bg-gray-900 */
+        color: #f3f4f6; /* text-gray-100 */
+        border: 1px solid #374151; /* border-gray-700 */
+        border-radius: 0.375rem;
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+        font-size: 0.875rem;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #9ca3af; /* text-gray-400 */
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #facc15; /* ring-yellow-400 */
+        box-shadow: 0 0 0 1px #facc15;
+    }
+</style>
+{% endblock %}

@@ -126,6 +126,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATIC_URL = '/static/'
+
+# Se você quer servir arquivos estáticos no modo de desenvolvimento:
+STATICFILES_DIRS = [BASE_DIR / 'core' / 'static']
 
 
 MEDIA_URL = '/media/'

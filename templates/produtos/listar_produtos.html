@@ -1,0 +1,46 @@
+{% extends "base_interno.html" %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 text-yellow-300">Gerenciar Produtos</h1>
+{% if messages %}
+  <div class="mb-4 space-y-2">
+    {% for message in messages %}
+      <div class="p-3 rounded text-white shadow
+        {% if message.tags == 'success' %}bg-green-600
+        {% elif message.tags == 'error' %}bg-red-600
+        {% else %}bg-yellow-600{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+<table class="w-full border-collapse rounded overflow-hidden">
+    <thead>
+        <tr class="bg-gray-700 text-left text-white">
+            <th class="p-3 border border-gray-600">Nome</th>
+            <th class="p-3 border border-gray-600">Preço</th>
+            <th class="p-3 border border-gray-600">Tamanho</th>
+            <th class="p-3 border border-gray-600">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in produtos %}
+        <tr class="hover:bg-gray-800 transition-colors">
+            <td class="p-3 border border-gray-700">{{ produto.nome }}</td>
+            <td class="p-3 border border-gray-700">R$ {{ produto.preco }}</td>
+            <td class="p-3 border border-gray-700">{{ produto.tamanho }}</td>
+            <td class="p-3 border border-gray-700 flex items-center space-x-3">
+                <a href="{% url 'produtos:editar_produto' produto.id %}" class="text-blue-400 hover:text-blue-200" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'produtos:excluir_produto' produto.id %}" class="text-red-400 hover:text-red-200" onclick="return confirm('Tem certeza que deseja excluir?')" title="Excluir">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
