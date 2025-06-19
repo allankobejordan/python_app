@@ -48,7 +48,9 @@ def catalogo(request):
     context = {
         'page_obj': page_obj,
     }
-    return render(request, 'home.html', context)
+    return render(request, 'produtos/catalogo.html', {
+        'page_obj': page_obj
+    })
 
 def cadastrar_produto(request):
     if request.method == 'POST':

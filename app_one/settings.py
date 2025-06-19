@@ -28,15 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Looking to send emails in production? Check out our Email API/SMTP product!
+# Configurações de envio de e-mail com Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# Looking to send emails in production? Check out our Email API/SMTP product!
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '03ea3c77116e14'
-EMAIL_HOST_PASSWORD = 'b44a5bea2e5ee7'
-EMAIL_PORT = '2525'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'no-reply@streetvibes.com'
+EMAIL_HOST_USER = 'allanjordan2011@gmail.com'
+EMAIL_HOST_PASSWORD = 'fokzknbjltgeuwqf'  # ou app password do Gmail
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 
 

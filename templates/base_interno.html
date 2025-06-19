@@ -73,9 +73,11 @@
     <h1 class="text-pink-400 text-2xl">🧢 Street Vibes 90s</h1>
     <nav class="space-x-4 text-sm">
       <a href="{% url 'home' %}" class="hover:text-yellow-300">Início</a>
+      {% if request.user.perfilusuario.perfil == 'master' %}
       <a href="{% url 'listar_usuarios' %}" class="hover:text-yellow-300">Usuários</a>
       <a href="{% url 'produtos:cadastrar_produto' %}" class="hover:text-yellow-300">Cadastrar Produto</a>
       <a href="{% url 'produtos:listar_produtos' %}" class="hover:text-yellow-300">Admin Produtos</a>
+      {% endif %}
       <a href="{% url 'produtos:catalogo' %}" class="hover:text-yellow-300">Catálogo</a>
       <a href="{% url 'logout' %}" class="hover:text-red-400">Sair</a>
     </nav>

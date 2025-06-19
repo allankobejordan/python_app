@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from core.views import home
+from usuarios.views import send_test_email
 from django.conf import settings
 from django.conf.urls.static import static  # <- você tinha esquecido de importar isso
 
@@ -11,7 +12,7 @@ urlpatterns = [
     
     path('', home, name='home'),
     path('produtos/', include('produtos.urls')),
-    path('', include('produtos.urls', namespace='produtos')),  # ⬅️ ESSENCIAL
+    path('teste-email/', send_test_email, name='teste_email'),
 ]
 
 if settings.DEBUG:

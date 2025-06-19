@@ -9,11 +9,22 @@
   <form method="post" class="bg-black/60 backdrop-blur-md p-8 rounded-2xl shadow-[0_0_20px_#00ffff] w-full max-w-md text-white animate__animated animate__fadeIn">
     <h2 class="text-3xl font-extrabold text-center mb-6 text-yellow-300 drop-shadow-md">Confirmar Código</h2>
 
-    {% if messages %}
-      {% for message in messages %}
-        <p class="bg-red-600 text-white p-2 rounded mb-4 text-center shadow-md">{{ message }}</p>
-      {% endfor %}
-    {% endif %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="p-3 rounded text-white text-center mb-4
+                {% if message.tags == 'success' %}
+                  bg-green-500
+                {% elif message.tags == 'error' %}
+                  bg-red-600
+                {% else %}
+                  bg-blue-500
+                {% endif %}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+
 
     {% csrf_token %}
 

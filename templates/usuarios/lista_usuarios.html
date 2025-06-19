@@ -9,13 +9,22 @@
 {% if messages %}
   {% for message in messages %}
     <div 
-        class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" 
-        role="alert"
-        style="margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
-    >
+        class="my-4 p-4 border rounded text-white
+               {% if message.tags == 'success' %}bg-green-600
+               {% elif message.tags == 'error' %}bg-red-600
+               {% else %}bg-gray-600{% endif %}">
         {{ message }}
     </div>
   {% endfor %}
+{% endif %}
+
+{% if request.user.perfilusuario.perfil == 'master' %}
+  <div class="mb-4 text-right">
+    <a href="{% url 'cadastrar_usuario' %}" 
+       class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded shadow">
+      + Novo Usuário
+    </a>
+  </div>
 {% endif %}
 
 <table class="w-full text-left bg-white text-black rounded shadow">
@@ -23,7 +32,9 @@
         <tr class="bg-gray-200 text-gray-800">
             <th class="p-3">Usuário</th>
             <th class="p-3">Email</th>
-            <th class="p-3">Ações</th>
+            {% if request.user.perfilusuario.perfil == 'master' %}
+              <th class="p-3">Ações</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -31,6 +42,7 @@
         <tr class="border-t">
             <td class="p-3">{{ usuario.username }}</td>
             <td class="p-3">{{ usuario.email }}</td>
+            {% if request.user.perfilusuario.perfil == 'master' %}
             <td class="p-3 space-x-4">
                 <a href="{% url 'editar_usuario' usuario.id %}" class="text-blue-500 hover:text-blue-700" title="Editar">
                     <i class="fas fa-edit"></i>
@@ -40,6 +52,7 @@
                     <i class="fas fa-trash-alt"></i>
                 </a>
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
