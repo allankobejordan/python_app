@@ -28,6 +28,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Looking to send emails in production? Check out our Email API/SMTP product!
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Looking to send emails in production? Check out our Email API/SMTP product!
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '03ea3c77116e14'
+EMAIL_HOST_PASSWORD = 'b44a5bea2e5ee7'
+EMAIL_PORT = '2525'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'no-reply@streetvibes.com'
+
+
 
 # Application definition
 
@@ -41,6 +52,7 @@ INSTALLED_APPS = [
     'usuarios',
     'core',
     'produtos',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
