@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os  # <--- adiciona isso aqui!
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Configurações de envio de e-mail com Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'allanjordan2011@gmail.com'
+EMAIL_HOST_PASSWORD = 'fokzknbjltgeuwqf'  # ou app password do Gmail
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
 
 # Application definition
 
@@ -39,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'core',
+    'produtos',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +137,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/static/'
+
+# Se você quer servir arquivos estáticos no modo de desenvolvimento:
+STATICFILES_DIRS = [BASE_DIR / 'core' / 'static']
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
