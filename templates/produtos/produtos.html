@@ -1,0 +1,83 @@
+{% extends "base_interno.html" %}
+
+{% block title %}Cadastrar Produto{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl text-yellow-300 mb-6">Cadastrar nova blusa</h2>
+{% if messages %}
+  <div class="mb-4">
+    {% for message in messages %}
+      <div class="p-3 rounded text-white
+        {% if message.tags == 'success' %}bg-green-600
+        {% elif message.tags == 'error' %}bg-red-600
+        {% elif message.tags == 'warning' %}bg-yellow-500
+        {% else %}bg-gray-700{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" class="bg-white text-black p-6 rounded shadow-md w-full max-w-2xl mx-auto">
+  {% csrf_token %}
+
+  <div class="mb-4">
+    <label for="nome" class="block font-bold mb-1">Nome do Produto:</label>
+    <input type="text" name="nome" id="nome" class="w-full p-2 border border-gray-300 rounded" required minlength="3" maxlength="50">
+  </div>
+
+  <div class="mb-4">
+    <label for="descricao" class="block font-bold mb-1">Descrição:</label>
+    <textarea name="descricao" id="descricao" class="w-full p-2 border border-gray-300 rounded" maxlength="200" required></textarea>
+  </div>
+
+  <div class="mb-4">
+    <label for="preco" class="block font-bold mb-1">Preço (R$):</label>
+    <input type="text" name="preco" id="preco" pattern="^\d+(,\d{1,2})?$" placeholder="Ex: 49,90" class="w-full p-2 border border-gray-300 rounded" required>
+  </div>
+
+  <div class="mb-4">
+    <label for="tamanho" class="block font-bold mb-1">Tamanho:</label>
+    <select name="tamanho" id="tamanho" class="w-full p-2 border border-gray-300 rounded">
+      <option value="P">P</option>
+      <option value="M">M</option>
+      <option value="G">G</option>
+      <option value="GG">GG</option>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label for="imagem" class="block font-bold mb-1">Imagem do Produto:</label>
+    <label class="block w-full cursor-pointer text-center py-2 px-4 border border-dashed border-gray-400 rounded bg-gray-100 hover:bg-gray-200">
+      Clique para enviar imagem
+      <input type="file" name="imagem" id="imagem" accept="image/*" class="hidden">
+    </label>
+  </div>
+
+  <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded">
+    Cadastrar
+  </button>
+</form>
+
+<script>
+  // Impede letras no campo de preço
+  document.getElementById("preco").addEventListener("input", function(e) {
+    this.value = this.value.replace(/[^\d,]/g, "");
+  });
+
+  const precoInput = document.getElementById("preco");
+
+  precoInput.addEventListener("input", function (e) {
+    let valor = e.target.value;
+
+    // Remove tudo que não for número
+    valor = valor.replace(/\D/g, "");
+
+    // Converte para centavos e insere vírgula
+    valor = (parseInt(valor, 10) / 100).toFixed(2).replace(".", ",");
+
+    // Atualiza valor no input
+    e.target.value = valor;
+  });
+</script>
+{% endblock %}

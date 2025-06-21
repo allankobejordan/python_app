@@ -1,0 +1,61 @@
+{% extends "base_interno.html" %}
+
+{% block title %}Lista de Usuários{% endblock %}
+
+{% block content %}
+
+<h2 class="text-2xl text-yellow-300 mb-4">Usuários cadastrados</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <div 
+        class="my-4 p-4 border rounded text-white
+               {% if message.tags == 'success' %}bg-green-600
+               {% elif message.tags == 'error' %}bg-red-600
+               {% else %}bg-gray-600{% endif %}">
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+{% if request.user.perfilusuario.perfil == 'master' %}
+  <div class="mb-4 text-right">
+    <a href="{% url 'cadastrar_usuario' %}" 
+       class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded shadow">
+      + Novo Usuário
+    </a>
+  </div>
+{% endif %}
+
+<table class="w-full text-left bg-white text-black rounded shadow">
+    <thead>
+        <tr class="bg-gray-200 text-gray-800">
+            <th class="p-3">Usuário</th>
+            <th class="p-3">Email</th>
+            {% if request.user.perfilusuario.perfil == 'master' %}
+              <th class="p-3">Ações</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr class="border-t">
+            <td class="p-3">{{ usuario.username }}</td>
+            <td class="p-3">{{ usuario.email }}</td>
+            {% if request.user.perfilusuario.perfil == 'master' %}
+            <td class="p-3 space-x-4">
+                <a href="{% url 'editar_usuario' usuario.id %}" class="text-blue-500 hover:text-blue-700" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'excluir_usuario' usuario.id %}" class="text-red-500 hover:text-red-700"
+                   onclick="return confirm('Tem certeza que deseja excluir este usuário?');" title="Excluir">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

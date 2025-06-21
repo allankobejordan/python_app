@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Street Vibes 90s{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col items-center justify-center px-4"
+     style="background: linear-gradient(135deg, #e91e63 0%, #9b59b6 50%, #1abc9c 100%);">
+
+  <form method="post" class="bg-black/60 backdrop-blur-md p-8 rounded-2xl shadow-[0_0_20px_#ff00ff] w-full max-w-md text-white animate__animated animate__fadeInDown">
+    <h2 class="text-4xl font-extrabold text-center mb-6 text-pink-400 drop-shadow-md">Street Vibes 90s</h2>
+
+    {% if form.errors %}
+      <p class="bg-red-600 text-white p-2 rounded mb-4 text-center shadow-md">Usuário ou senha inválidos.</p>
+    {% endif %}
+
+    {% csrf_token %}
+
+    <div class="mb-4">
+      <label class="block mb-1 text-yellow-300">Usuário</label>
+      <div class="flex items-center bg-gray-800 border border-cyan-300 rounded px-3">
+        <i class="fa fa-user text-yellow-400 mr-2"></i>
+        <input type="text" name="username" class="w-full py-2 bg-transparent focus:outline-none text-white" placeholder="Nome de usuário">
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <label class="block mb-1 text-yellow-300">Senha</label>
+      <div class="flex items-center bg-gray-800 border border-cyan-300 rounded px-3">
+        <i class="fa fa-lock text-yellow-400 mr-2"></i>
+        <input type="password" name="password" class="w-full py-2 bg-transparent focus:outline-none text-white" placeholder="Sua senha">
+      </div>
+    </div>
+
+    <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-yellow-400 hover:from-yellow-400 hover:to-pink-500 text-black font-bold py-2 rounded shadow-lg transition-all">
+      ENTRAR
+    </button>
+
+    <p class="text-center text-sm mt-4 text-cyan-100">Ainda não tem conta?</p>
+    <a href="{% url 'cadastrar_usuario' %}" class="block text-center text-yellow-300 hover:text-yellow-200 underline">
+      Cadastrar novo usuário
+    </a>
+  </form>
+
+  <!-- Ícones decorativos estilo anos 90 -->
+  <div class="flex gap-5 text-yellow-100 text-xl mt-6 opacity-60">
+    <i class="fas fa-boombox"></i>
+    <i class="fas fa-gamepad"></i>
+    <i class="fas fa-basketball-ball"></i>
+    <i class="fas fa-microphone"></i>
+    <i class="fas fa-male"></i>
+    <i class="fas fa-female"></i>
+  </div>
+</div>
+{% endblock %}

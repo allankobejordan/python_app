@@ -1,0 +1,81 @@
+{% extends "base_interno.html" %}
+{% load static %}
+
+{% block title %}Catálogo de Produtos{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl text-yellow-300 mb-4">Catálogo de Produtos</h2>
+<p class="text-white mb-6">Encontre as melhores blusas com estilo autêutico das ruas!</p>
+
+<!-- Filtros -->
+<form method="get" class="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-800 p-4 rounded">
+  <input type="text" name="q" placeholder="Buscar por nome"
+    value="{{ request.GET.q }}"
+    class="p-2 rounded bg-gray-900 text-white border border-pink-400 w-full placeholder-gray-400" />
+
+  <select name="tamanho" class="p-2 rounded bg-gray-900 text-white border border-pink-400 w-full">
+    <option value="">Filtrar por tamanho</option>
+    <option value="P" {% if request.GET.tamanho == "P" %}selected{% endif %}>P</option>
+    <option value="M" {% if request.GET.tamanho == "M" %}selected{% endif %}>M</option>
+    <option value="G" {% if request.GET.tamanho == "G" %}selected{% endif %}>G</option>
+    <option value="GG" {% if request.GET.tamanho == "GG" %}selected{% endif %}>GG</option>
+  </select>
+
+  <input type="number" name="preco_min" step="0.01" placeholder="Preço mín."
+    value="{{ request.GET.preco_min }}"
+    class="p-2 rounded bg-gray-900 text-white border border-pink-400 w-full placeholder-gray-400" />
+
+  <input type="number" name="preco_max" step="0.01" placeholder="Preço máx."
+    value="{{ request.GET.preco_max }}"
+    class="p-2 rounded bg-gray-900 text-white border border-pink-400 w-full placeholder-gray-400" />
+
+  <button type="submit"
+    class="md:col-span-2 bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition w-full">
+    🔍 Filtrar
+  </button>
+  <a href="{% url 'produtos:catalogo' %}"
+    class="md:col-span-2 text-center bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition w-full">
+    🔄 Limpar filtros
+  </a>
+</form>
+
+<h3 class="text-2xl text-pink-400 mb-4">Produtos Disponíveis</h3>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  {% for produto in page_obj %}
+  <div class="bg-white p-4 rounded shadow text-black">
+    {% if produto.imagem %}
+    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+      class="w-full h-48 object-contain bg-white rounded mb-3 border border-gray-200 shadow-sm p-2">
+    {% endif %}
+    <h4 class="text-xl font-bold">{{ produto.nome }}</h4>
+    <p class="text-gray-700 mb-2">{{ produto.descricao }}</p>
+    <p class="text-pink-600 font-bold">R$ {{ produto.preco|floatformat:2 }}</p>
+    <p class="text-sm text-gray-500">Tamanho: {{ produto.tamanho }}</p>
+    <a href="#"
+      class="inline-block mt-3 px-4 py-2 bg-pink-500 text-white font-semibold rounded hover:bg-pink-600 transition">
+      Saiba mais
+    </a>
+  </div>
+  {% empty %}
+  <p class="text-white">Nenhum produto cadastrado ainda.</p>
+  {% endfor %}
+</div>
+
+<!-- Paginação -->
+<div class="mt-8 flex justify-center space-x-2">
+  {% if page_obj.has_previous %}
+  <a href="?q={{ request.GET.q }}&tamanho={{ request.GET.tamanho }}&preco_min={{ request.GET.preco_min }}&preco_max={{ request.GET.preco_max }}&page={{ page_obj.previous_page_number }}"
+    class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">⬅️ Anterior</a>
+  {% endif %}
+
+  <span class="px-4 py-2 bg-gray-900 text-white rounded">
+    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+  <a href="?q={{ request.GET.q }}&tamanho={{ request.GET.tamanho }}&preco_min={{ request.GET.preco_min }}&preco_max={{ request.GET.preco_max }}&page={{ page_obj.next_page_number }}"
+    class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Próxima ➡️</a>
+  {% endif %}
+</div>
+{% endblock %}

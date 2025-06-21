@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Street Vibes 90s{% endblock %}</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      font-family: 'Bungee', cursive;
+    }
+
+    .swiper-slide {
+      background-size: cover;
+      background-position: center 25%;
+      height: 400px;
+      position: relative;
+    }
+
+    .banner-overlay {
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 20px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .banner-overlay h2 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .banner-overlay p {
+      margin: 5px 0 0;
+    }
+
+    /* Centraliza os botões do carrossel verticalmente */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #fff;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 10px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+<header class="bg-black/80 shadow-md p-4 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+  <!-- Logo -->
+  <h1 class="text-pink-400 text-2xl">🧢 Street Vibes 90s</h1>
+
+  <!-- Área direita: nome + menu -->
+  <div class="flex flex-col md:flex-row md:items-center md:space-x-6 w-full justify-between md:justify-end">
+
+    <!-- Se logado, mostra nome -->
+    {% if request.user.is_authenticated %}
+    <div class="flex items-center text-sm text-white space-x-2 mb-2 md:mb-0">
+      <i class="fas fa-user-circle text-yellow-300 text-lg"></i>
+      <span>Olá, {{ request.user.first_name|default:request.user.username }}</span>
+    </div>
+    {% endif %}
+
+    <!-- Navegação -->
+    <nav class="space-x-4 text-sm text-center md:text-left">
+      <a href="{% url 'home' %}" class="hover:text-yellow-300">Início</a>
+
+      {% if request.user.is_authenticated and request.user.perfilusuario.perfil == 'master' %}
+      <!-- Menu administrativo -->
+      <details class="relative inline-block text-left">
+        <summary class="cursor-pointer list-none hover:text-yellow-300 text-sm">
+          Administração 🔽
+        </summary>
+        <div class="absolute bg-black text-white rounded shadow-md mt-2 py-2 w-48 z-50">
+          <a href="{% url 'listar_usuarios' %}" class="block px-4 py-2 hover:bg-gray-800">Usuários</a>
+          <a href="{% url 'produtos:cadastrar_produto' %}" class="block px-4 py-2 hover:bg-gray-800">Cadastrar Produto</a>
+          <a href="{% url 'produtos:listar_produtos' %}" class="block px-4 py-2 hover:bg-gray-800">Admin Produtos</a>
+        </div>
+      </details>
+      {% endif %}
+
+      <a href="{% url 'produtos:catalogo' %}" class="hover:text-yellow-300">Catálogo</a>
+
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="hover:text-red-400">Sair</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="hover:text-green-400">Entrar / Criar Conta</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 p-6">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Rodapé -->
+ <footer class="bg-gray-900 text-white py-10 px-4 mt-12">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Logo e nome -->
+    <div>
+      <h2 class="text-2xl font-bold mb-2">Street Vibes 90s</h2>
+      <p class="text-sm text-gray-400">
+        Estilo, atitude e nostalgia em cada estampa.
+      </p>
+    </div>
+
+    <!-- Links úteis -->
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Navegação</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/" class="hover:text-yellow-300 transition">Início</a></li>
+        <li><a href="/produtos" class="hover:text-yellow-300 transition">Catálogo</a></li>
+        <li><a href="/contato" class="hover:text-yellow-300 transition">Contato</a></li>
+        <li><a href="/sobre" class="hover:text-yellow-300 transition">Sobre Nós</a></li>
+      </ul>
+    </div>
+
+    <!-- Redes sociais -->
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Siga a gente</h3>
+      <div class="flex space-x-4 text-lg">
+        <a href="#" class="hover:text-pink-400 transition">Instagram</a>
+        <a href="#" class="hover:text-blue-400 transition">Facebook</a>
+        <a href="#" class="hover:text-red-500 transition">YouTube</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 text-center text-xs text-gray-500 border-t border-gray-700 pt-4">
+    &copy; 2025 Street Vibes 90s. Todos os direitos reservados.
+  </div>
+</footer>
+
+
+<!-- Player de Música fixo -->
+<div class="fixed bottom-0 left-0 right-0 bg-black text-white border-t border-gray-800 shadow-lg z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+
+    <!-- Título da playlist -->
+    <div class="flex items-center space-x-2">
+      <i class="fas fa-music text-yellow-400"></i>
+      <span class="text-sm font-semibold">Street Vibes Playlist</span>
+    </div>
+
+    <!-- Player -->
+    {% if musicas_playlist %}
+    <audio id="playerAudio" controls preload="none" class="w-full md:w-auto">
+      {% for musica in musicas_playlist %}
+        <source src="{{ musica.arquivo.url }}" type="audio/mpeg">
+      {% endfor %}
+    </audio>
+    {% else %}
+    <p class="text-gray-400 text-sm">Nenhuma faixa disponível</p>
+    {% endif %}
+
+    <!-- Botão master -->
+    {% if request.user.is_authenticated and request.user.perfilusuario.perfil == 'master' %}
+    <a href="{% url 'playlist:gerenciar' %}" class="bg-yellow-400 text-black font-bold px-3 py-1 rounded hover:bg-yellow-300 transition text-sm">
+      🎛️ Gerenciar Músicas
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".swiper", {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</body>
+</html>

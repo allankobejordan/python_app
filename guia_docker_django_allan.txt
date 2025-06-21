@@ -1,0 +1,21 @@
+1. Parar containers e remover volumes órfãos:
+
+sudo docker compose down --volumes --remove-orphans
+
+2. Limpar tudo do Docker (imagens, containers parados, volumes não utilizados etc.):
+
+sudo docker system prune -a --volumes
+
+⚠️ Cuidado: esse comando apaga tudo que não estiver sendo usado. Só use se tiver certeza!
+3. Rebuildar o projeto do zero, sem cache:
+
+sudo docker compose build --no-cache
+
+4. Subir o projeto novamente:
+
+sudo docker compose up
+
+(Ou rodar em segundo plano):
+
+sudo docker compose up -d
+
