@@ -6,11 +6,11 @@
 {% block content %}
 <div class="min-h-screen bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white px-6 py-10">
   <h1 class="text-4xl md:text-5xl font-extrabold text-center text-yellow-400 mb-10 animate__animated animate__fadeInDown">
-    Street Vibes 90s 🧢
+    Street Vibes 90s 🧲
   </h1>
 
-  <!-- Swiper -->
-  <div class="swiper mb-10">
+  <!-- Swiper AGORA NO TOPO -->
+  <div class="swiper mb-20">
     <div class="swiper-wrapper">
       <div class="swiper-slide" style="background-image: url('{% static "img/trio.jpeg" %}');">
         <div class="banner-overlay">
@@ -18,14 +18,12 @@
           <p>Referência a lendas femininas da cultura de rua</p>
         </div>
       </div>
-
       <div class="swiper-slide" style="background-image: url('{% static "img/hiphop2.png" %}');">
         <div class="banner-overlay">
           <h2>🎤 Street Vibes Original</h2>
           <p>Autenticidade e atitude nos detalhes</p>
         </div>
       </div>
-
       <div class="swiper-slide" style="background-image: url('{% static "img/basquete.png" %}');">
         <div class="banner-overlay">
           <h2>🏀 Cultura & Legado</h2>
@@ -38,7 +36,8 @@
     <div class="swiper-button-next"></div>
   </div>
 
-  <div class="text-center mt-10">
+  <!-- Texto institucional -->
+  <div class="text-center mt-10 mb-20">
     <h2 class="text-3xl font-bold text-pink-400 mb-4 animate__animated animate__fadeInUp">Entre no clima do jogo</h2>
     <p class="text-gray-300 max-w-2xl mx-auto mb-6">
       A moda que carrega a essência do hip hop, da cultura urbana e do basquete de rua dos anos 90 está aqui. Deixe sua presença falar mais alto com estilo e atitude.
@@ -46,22 +45,19 @@
   </div>
 
   <!-- Cards com ícones -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-    <!-- Basquete -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
     <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 text-center py-8 px-4">
       <i class="fas fa-basketball-ball text-6xl text-yellow-300 mb-4"></i>
       <h3 class="text-xl font-semibold text-yellow-300 mb-2">Estilo das Quadras</h3>
       <p class="text-gray-300">Inspiração direto dos playgrounds das cidades americanas.</p>
     </div>
 
-    <!-- Hip Hop -->
     <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 text-center py-8 px-4">
       <i class="fas fa-microphone-alt text-6xl text-yellow-300 mb-4"></i>
       <h3 class="text-xl font-semibold text-yellow-300 mb-2">Cultura Hip Hop</h3>
       <p class="text-gray-300">Beat, rima, atitude e muita identidade visual.</p>
     </div>
 
-    <!-- Moda -->
     <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 text-center py-8 px-4">
       <i class="fas fa-tshirt text-6xl text-yellow-300 mb-4"></i>
       <h3 class="text-xl font-semibold text-yellow-300 mb-2">Moda de Impacto</h3>
@@ -69,12 +65,52 @@
     </div>
   </div>
 
-    <!-- Vitrine de Destaques -->
+  <!-- Lookbook Intercalado -->
+  <div class="space-y-32 mb-20">
+    <!-- Bloco 1 -->
+    <div class="flex flex-col md:flex-row items-center gap-10 h-auto">
+      <div class="md:w-1/2">
+        <img src="{% static 'img/ali_principal.png' %}" class="rounded-2xl shadow-xl w-full h-auto object-cover">
+      </div>
+      <div class="md:w-1/2 text-left">
+        <h2 class="text-4xl text-pink-400 font-extrabold mb-4">Moda Feminina com Atitude</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          Inspirada por ícones como Aaliyah, nossa linha feminina carrega o DNA do hip hop com cortes ousados, oversized e muito estilo dos 90s. Uma vibe que nunca sai de moda.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bloco 2 -->
+    <div class="flex flex-col md:flex-row-reverse items-center gap-10 h-auto">
+      <div class="md:w-1/2">
+        <img src="{% static 'img/md_ai.png' %}" class="rounded-2xl shadow-xl w-full h-auto object-cover">
+      </div>
+      <div class="md:w-1/2 text-left">
+        <h2 class="text-4xl text-yellow-300 font-extrabold mb-4">Estilo das Quadras</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          O legado de Allen Iverson vai além das linhas da quadra. Ele moldou uma era com sua presença marcante, e agora o streetwear bebe direto dessa fonte de inspiração.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bloco 3 -->
+    <div class="flex flex-col md:flex-row items-center gap-10 h-auto">
+      <div class="md:w-1/2">
+        <img src="{% static 'img/kobe_gigi.png' %}" class="rounded-2xl shadow-xl w-full h-auto object-cover">
+      </div>
+      <div class="md:w-1/2 text-left">
+        <h2 class="text-4xl text-purple-400 font-extrabold mb-4">Legado Kobe: Vibe Imortal</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          A pegada urbana com essência Mamba. Esta coleção é uma homenagem ao espírito de superação, força e estilo do Black Mamba. Roupa com história, não só design.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vitrine de Destaques -->
   <div class="mt-20">
     <h2 class="text-3xl font-bold text-yellow-300 text-center mb-10 animate__animated animate__fadeInUp">🔥 Vitrine Street Vibes</h2>
-
     <div class="grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-      <!-- Produto 1 -->
       <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-400 transition duration-300">
         <img src="{% static 'img/produto1.jpg' %}" alt="Blusa Oversize" class="w-full h-64 object-cover">
         <div class="p-4 text-center">
@@ -84,7 +120,6 @@
         </div>
       </div>
 
-      <!-- Produto 2 -->
       <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-400 transition duration-300">
         <img src="{% static 'img/produto2.jpg' %}" alt="Boné Street" class="w-full h-64 object-cover">
         <div class="p-4 text-center">
@@ -93,7 +128,6 @@
         </div>
       </div>
 
-      <!-- Produto 3 -->
       <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-400 transition duration-300">
         <img src="{% static 'img/produto3.jpg' %}" alt="Jaqueta" class="w-full h-64 object-cover">
         <div class="p-4 text-center">
@@ -102,7 +136,6 @@
         </div>
       </div>
 
-      <!-- Produto 4 -->
       <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-400 transition duration-300">
         <img src="{% static 'img/produto4.jpg' %}" alt="Tênis retro" class="w-full h-64 object-cover">
         <div class="p-4 text-center">
@@ -113,7 +146,5 @@
       </div>
     </div>
   </div>
-
 </div>
-
 {% endblock %}
