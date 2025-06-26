@@ -71,7 +71,9 @@
 
 <header class="bg-black/80 shadow-md p-4 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
   <!-- Logo -->
-  <h1 class="text-pink-400 text-2xl">🧢 Street Vibes 90s</h1>
+  <a href="{% url 'home' %}">
+    <img src="{% static 'img/street_vibes.png' %}" alt="Street Vibes Logo" class="h-36 w-auto">
+  </a>
 
   <!-- Área direita: nome + menu -->
   <div class="flex flex-col md:flex-row md:items-center md:space-x-6 w-full justify-between md:justify-end">
