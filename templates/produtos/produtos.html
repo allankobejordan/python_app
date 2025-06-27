@@ -35,6 +35,16 @@
     <label for="preco" class="block font-bold mb-1">Preço (R$):</label>
     <input type="text" name="preco" id="preco" pattern="^\d+(,\d{1,2})?$" placeholder="Ex: 49,90" class="w-full p-2 border border-gray-300 rounded" required>
   </div>
+  {% if produto.quantidade > 0 %}
+      <div class="flex flex-col items-center gap-2 mt-2">
+        <button class="bg-gray-700 px-3 py-1 text-lg rounded" onclick="decrementar(this)">-</button>
+        <input type="number" value="1" min="1" max="{{ produto.quantidade }}" class="w-14 text-center rounded bg-gray-800 text-white border border-gray-600 quantidade-input">
+        <button class="bg-gray-700 px-3 py-1 text-lg rounded" onclick="incrementar(this)">+</button>
+      </div>
+      <small class="text-gray-400 mt-1">Disponível: {{ produto.quantidade }}</small>
+      {% else %}
+       <p class="text-red-500 font-semibold mt-2">Produto esgotado</p>
+  {% endif %}
 
   <div class="mb-4">
     <label for="tamanho" class="block font-bold mb-1">Tamanho:</label>
@@ -60,6 +70,21 @@
 </form>
 
 <script>
+    function incrementar(btn, max) {
+    const input = btn.previousElementSibling;
+    let valor = parseInt(input.value);
+    if (valor < max) {
+      input.value = valor + 1;
+    }
+  }
+
+  function decrementar(btn) {
+    const input = btn.nextElementSibling;
+    let valor = parseInt(input.value);
+    if (valor > 1) {
+      input.value = valor - 1;
+    }
+  }
   // Impede letras no campo de preço
   document.getElementById("preco").addEventListener("input", function(e) {
     this.value = this.value.replace(/[^\d,]/g, "");
