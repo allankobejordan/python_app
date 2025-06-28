@@ -87,31 +87,42 @@
     {% endif %}
 
     <!-- Navegação -->
-    <nav class="space-x-4 text-sm text-center md:text-left">
-      <a href="{% url 'home' %}" class="hover:text-yellow-300">Início</a>
+  <!-- Navegação -->
+<nav class="space-x-4 text-sm text-center md:text-left flex items-center flex-wrap justify-center md:justify-end">
 
-      {% if request.user.is_authenticated and request.user.perfilusuario.perfil == 'master' %}
-      <!-- Menu administrativo -->
-      <details class="relative inline-block text-left">
-        <summary class="cursor-pointer list-none hover:text-yellow-300 text-sm">
-          Administração 🔽
-        </summary>
-        <div class="absolute bg-black text-white rounded shadow-md mt-2 py-2 w-48 z-50">
-          <a href="{% url 'listar_usuarios' %}" class="block px-4 py-2 hover:bg-gray-800">Usuários</a>
-          <a href="{% url 'produtos:cadastrar_produto' %}" class="block px-4 py-2 hover:bg-gray-800">Cadastrar Produto</a>
-          <a href="{% url 'produtos:listar_produtos' %}" class="block px-4 py-2 hover:bg-gray-800">Admin Produtos</a>
-        </div>
-      </details>
-      {% endif %}
+  <!-- Link: Início -->
+  <a href="{% url 'home' %}" class="hover:text-yellow-300">Início</a>
 
-      <a href="{% url 'produtos:catalogo' %}" class="hover:text-yellow-300">Catálogo</a>
+  <!-- Link: Catálogo -->
+  <a href="{% url 'produtos:catalogo' %}" class="hover:text-yellow-300">Catálogo</a>
 
-      {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}" class="hover:text-red-400">Sair</a>
-      {% else %}
-        <a href="{% url 'login' %}" class="hover:text-green-400">Entrar / Criar Conta</a>
-      {% endif %}
-    </nav>
+  <!-- Link: Carrinho -->
+  <a href="{% url 'produtos:ver_carrinho' %}" class="flex items-center space-x-1 hover:text-yellow-300">
+    <i class="fas fa-shopping-cart"></i>
+    <span>Carrinho</span>
+  </a>
+
+  {% if request.user.is_authenticated and request.user.perfilusuario.perfil == 'master' %}
+  <!-- Dropdown: Administração -->
+  <details class="relative inline-block text-left">
+    <summary class="cursor-pointer list-none hover:text-yellow-300 text-sm">
+      Administração 🔽
+    </summary>
+    <div class="absolute bg-black text-white rounded shadow-md mt-2 py-2 w-48 z-50">
+      <a href="{% url 'listar_usuarios' %}" class="block px-4 py-2 hover:bg-gray-800">Usuários</a>
+      <a href="{% url 'produtos:cadastrar_produto' %}" class="block px-4 py-2 hover:bg-gray-800">Cadastrar Produto</a>
+      <a href="{% url 'produtos:listar_produtos' %}" class="block px-4 py-2 hover:bg-gray-800">Admin Produtos</a>
+    </div>
+  </details>
+  {% endif %}
+
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}" class="hover:text-red-400">Sair</a>
+  {% else %}
+    <a href="{% url 'login' %}" class="hover:text-green-400">Entrar / Criar Conta</a>
+  {% endif %}
+</nav>
+
   </div>
 </header>
 
