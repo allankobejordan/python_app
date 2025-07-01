@@ -79,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'playlist.context_processors.playlist_musicas',
+                'produtos.context_processors.total_itens_carrinho',
             ],
         },
     },
