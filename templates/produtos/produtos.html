@@ -35,6 +35,11 @@
     <label for="preco" class="block font-bold mb-1">Preço (R$):</label>
     <input type="text" name="preco" id="preco" pattern="^\d+(,\d{1,2})?$" placeholder="Ex: 49,90" class="w-full p-2 border border-gray-300 rounded" required>
   </div>
+<div class="mb-4">
+  <label for="quantidade" class="block font-bold mb-1">Quantidade em Estoque:</label>
+  <input type="number" name="quantidade" id="quantidade" class="w-full p-2 border border-gray-300 rounded" required min="0">
+</div>
+
 
   <div class="mb-4">
     <label for="tamanho" class="block font-bold mb-1">Tamanho:</label>
@@ -60,6 +65,21 @@
 </form>
 
 <script>
+    function incrementar(btn, max) {
+    const input = btn.previousElementSibling;
+    let valor = parseInt(input.value);
+    if (valor < max) {
+      input.value = valor + 1;
+    }
+  }
+
+  function decrementar(btn) {
+    const input = btn.nextElementSibling;
+    let valor = parseInt(input.value);
+    if (valor > 1) {
+      input.value = valor - 1;
+    }
+  }
   // Impede letras no campo de preço
   document.getElementById("preco").addEventListener("input", function(e) {
     this.value = this.value.replace(/[^\d,]/g, "");

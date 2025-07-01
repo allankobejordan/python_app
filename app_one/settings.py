@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core',
     'produtos',
     'widget_tweaks',
+    'playlist',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'playlist.context_processors.playlist_musicas',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'produtos.context_processors.total_itens_carrinho',
+
             ],
         },
     },

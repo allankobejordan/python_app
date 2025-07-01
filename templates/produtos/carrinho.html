@@ -1,0 +1,47 @@
+{% extends "base_interno.html" %}
+{% block title %}Carrinho{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white text-black p-6 rounded shadow">
+  <h2 class="text-2xl font-bold mb-4">🛒 Seu Carrinho</h2>
+
+  {% if carrinho %}
+    <table class="w-full mb-6">
+      <thead>
+        <tr class="text-left border-b">
+          <th>Produto</th>
+          <th>Tamanho</th>
+          <th>Qtd</th>
+          <th>Preço</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for id, item in carrinho.items %}
+        <tr class="border-b">
+          <td class="py-2">
+            <img src="{{ item.imagem_url }}" alt="{{ item.nome }}" class="w-16 h-16 inline-block mr-2">
+            {{ item.nome }}
+          </td>
+          <td>{{ item.tamanho }}</td>
+          <td>{{ item.quantidade }}</td>
+          <td>R$ {{ item.preco }}</td>
+          <td>R$ {{ item.subtotal }}</td>
+          <td>
+            <a href="{% url 'produtos:remover_do_carrinho' id %}" class="text-red-600 hover:underline">Remover</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="text-right text-lg font-bold">
+      Total: R$ {{ total|floatformat:2 }}
+    </div>
+
+  {% else %}
+    <p>O carrinho está vazio.</p>
+  {% endif %}
+</div>
+{% endblock %}

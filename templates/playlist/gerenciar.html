@@ -1,0 +1,58 @@
+{% extends 'base_interno.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Gerenciar Músicas{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+
+  <h2 class="text-3xl font-bold mb-6 text-yellow-300 flex items-center gap-2">
+    <i class="fas fa-sliders-h"></i> Gerenciar Músicas
+  </h2>
+
+  <!-- Formulário de upload -->
+  <form method="post" enctype="multipart/form-data" class="bg-gray-800 p-6 rounded-lg shadow-md mb-10 space-y-4">
+    {% csrf_token %}
+    <div>
+      <label class="block text-white text-sm font-semibold mb-1">Título da Música</label>
+      {{ form.titulo|add_class:"w-full bg-gray-900 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" }}
+    </div>
+
+    <div>
+      <label class="block text-white text-sm font-semibold mb-1">Arquivo MP3</label>
+      {{ form.arquivo|add_class:"w-full text-white file:bg-yellow-400 file:text-black file:font-semibold file:px-4 file:py-2 file:rounded" }}
+    </div>
+
+    <div>
+      <label class="block text-white text-sm font-semibold mb-1">Ordem</label>
+      {{ form.ordem|add_class:"w-full bg-gray-900 text-white border border-gray-600 rounded px-4 py-2" }}
+    </div>
+
+    <button type="submit" class="bg-yellow-400 text-black px-6 py-2 rounded-lg hover:bg-yellow-300 transition font-semibold">
+      ➕ Adicionar Música
+    </button>
+  </form>
+
+  <!-- Lista de músicas -->
+  <h3 class="text-2xl font-bold mb-4 text-pink-400">🎵 Músicas cadastradas</h3>
+
+  {% if musicas %}
+  <ul class="space-y-4">
+    {% for musica in musicas %}
+    <li class="bg-gray-800 p-4 rounded-lg shadow-md flex items-center justify-between">
+      <div class="text-white font-semibold">
+        {{ musica.ordem }}. {{ musica.titulo }}
+      </div>
+      <audio controls preload="none" class="w-48">
+        <source src="{{ musica.arquivo.url }}" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+      </audio>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-gray-400">Nenhuma música cadastrada ainda.</p>
+  {% endif %}
+</div>
+{% endblock %}

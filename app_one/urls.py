@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('usuarios.urls')),
-    
+    path('playlist/', include('playlist.urls')),
     path('', home, name='home'),
     path('produtos/', include('produtos.urls')),
     path('teste-email/', send_test_email, name='teste_email'),
