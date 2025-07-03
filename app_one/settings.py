@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'produtos',
     'widget_tweaks',
     'playlist',
+    'checkout',
+
 ]
 
 MIDDLEWARE = [
